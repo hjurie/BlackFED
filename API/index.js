@@ -10,25 +10,20 @@
 
 require('dotenv').config(); // 외부에서 설정한 데이터를 process.env로 불러 올수 있게 해줍니다.
 const express = require('express');
+const bodyParser = require('body-parser');
 
 // 다음과 같이 ./database, ./configuration 폴더형식이 아니게 사용하는 이유는 package.json에 실행시에 NODE_PATH=. 이라는 설정때문에 그렇습니다.
 // 오류가 난다면 경로로 설정하거나 NODE_PATH=.을 설정해주세요.
 const database = require('database');
 const config = require('configuration');
+const router = require('router');
 
 const app = express();
 
+app.use(bodyParser());
+app.use(router);
+
 const PORT = config.get('PORT');
-
-/* Route */
-app.get('/', (req, res) => {
-  res.send('<h1>hi!</h1>');
-});
-
-/* Route */
-app.get('/test', (req, res) => {
-  res.send('<h1>test Hi!</h1>');
-});
 
 // 일정한 port 번호로 서버 구동합니다.
 app.listen(PORT, async () => {

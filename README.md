@@ -10,7 +10,7 @@
 - NodeJS에서 Mongoose를 이용한 MongoDB Connection
 - NodeJS에서 development, production 모드를 구분하여 환경변화를 줄수 있는 config 설정
 
-### 3일차 - 2018. 05. 02 (예정)
+### 3일차 - 2018. 05. 02
 - NodeJS에서 Mongoose Schema 구성
 - NodeJS에서 TODO List의 Create, Read, Update, Delete 구현하기
 
