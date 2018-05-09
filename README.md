@@ -14,10 +14,11 @@
 - NodeJS에서 Mongoose Schema 구성
 - NodeJS에서 TODO List의 Create, Read, Update, Delete 구현하기
 
-### 4일차 - 2018. 05. 09 (예정)
-- CRA를 이용하여 ReactJS로 Front 구성
-- Styled-Components를 이용하여 TODO List 화면 구성 ( 등록, 수정, 삭제, 상태변환 )
+### 4일차 - 2018. 05. 09
+- CRA를 이용하여 ReactJS로 Front 구성 설명
+- Styled-Components를 이용하여 화면설계 방법 설명
+- 과제로 다음시간까지 (2018. 05. 16) TodoList 화면설계 각자 해오기 진행
 
 ### 5일차 - 2018. 05. 16 (예정)
-- Redux 구성
+- Redux 구성 함께하기
 - Rest API를 이용하여 데이터를 저장
