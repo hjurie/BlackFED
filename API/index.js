@@ -20,7 +20,7 @@ const router = require('router');
 
 const app = express();
 
-app.use(bodyParser());
+app.use(bodyParser.json(  ));
 app.use(router);
 
 const PORT = config.get('PORT');
