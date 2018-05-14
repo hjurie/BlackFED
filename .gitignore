@@ -1,0 +1,9 @@
+
+# Default
+.DS_Store
+
+# 스터디전 연습용
+/_API
+
+# 모든 프로젝트의 node_modues
+/*/node_modules
