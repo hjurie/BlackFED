@@ -28,45 +28,30 @@ const Item = styled.div`
   &::before { position: absolute; content: ''; top: 0; left: 25px; width: 0; height: 100%; border-left: 2px solid ${p => p.done ? '#363439' : '#3F3B40'}; }
 `;
 
-class ListComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    return (
-      <List>
-        <Item>
-          <div className="point" />
-          <div className="content">Todo List 디자인하기</div>
-          <div className="check">
-            {/* <Icon icon={checkmark} /> */}
-          </div>
-        </Item>
-        <Item>
-          <div className="point" />
-          <div className="content">Todo List 데이터 연결</div>
-          <div className="check">
-            {/* <Icon icon={checkmark} /> */}
-          </div>
-        </Item>
-        <Item>
-          <div className="point" />
-          <div className="content">Todo List 회고록 쓰기</div>
-          <div className="check">
-            {/* <Icon icon={checkmark} /> */}
-          </div>
-        </Item>
-        <Item done>
-          <div className="point" />
-          <div className="content">Todo List Back-End 만들기</div>
-          <div className="check">
-            <Icon size={24} icon={checkmark} />
-          </div>
-        </Item>
-      </List>
-    );
-  }
-};
+const ListComponent = (props) => {
+  const { onChange } = props;
+  let { list } = props;
+  list = list.reduce((acc, item) => {
+    if (!item.isComplete) { acc.unshift(item); }
+    else { acc.push(item); }
+    return acc;
+  }, []);
+  
+  return (
+    <List>
+      {
+        list.map((item, index) => (
+          <Item key={item._id} done={item.isComplete}>
+            <div className="point" />
+            <div className="content">Todo List 디자인하기</div>
+            <div className="check" onClick={() => onChange(item._id, !item.isComplete)}>
+              { item.isComplete ? <Icon icon={checkmark} /> : null }
+            </div>
+          </Item>
+        ))
+      }
+    </List>
+  );
+}
 
 export default ListComponent;
