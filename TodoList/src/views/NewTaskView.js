@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import Icon from 'react-icons-kit';
-import { iosCloseEmpty } from 'react-icons-kit/ionicons';
+import { close } from 'react-icons-kit/ionicons';
 import styled from 'styled-components';
 
 import Layout from '../styles/Layout';
@@ -56,7 +56,7 @@ class NewTaskView extends Component {
       <Layout>
         <Header>
           새로운 일정을 입력해주세요.
-          <Icon className="icon" size={40} icon={iosCloseEmpty} onClick={this.handleBack} />
+          <Icon className="icon" size={22} icon={close} onClick={this.handleBack} />
         </Header>
         <Calendar {...this.state} onSelected={this.handleSelected} />
         <Input type="text" name="content" value={content} onChange={this.handleChange} placeholder="일정 내용" />

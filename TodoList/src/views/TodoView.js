@@ -31,7 +31,7 @@ class TodoView extends Component {
   render() {
     return (
       <Layout>
-        <Header />
+        <Header {...this.state} />
         <List {...this.state} onChange={this.handleChange} />
       </Layout>
     );

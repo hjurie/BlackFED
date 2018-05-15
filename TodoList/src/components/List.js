@@ -7,7 +7,7 @@ const List = styled.div`
   display: flex; flex-direction: column;
 `;
 const Item = styled.div`
-  position: relative; flex-basis: 60px;
+  position: relative; flex-basis: 60px; user-select: none;
   background-color: ${p => p.done ? '#242125' : '#312E36'};
 
   & > div.point {
@@ -43,7 +43,7 @@ const ListComponent = (props) => {
         list.map((item, index) => (
           <Item key={item._id} done={item.isComplete}>
             <div className="point" />
-            <div className="content">Todo List 디자인하기</div>
+            <div className="content">{item.content}</div>
             <div className="check" onClick={() => onChange(item._id, !item.isComplete)}>
               { item.isComplete ? <Icon icon={checkmark} /> : null }
             </div>

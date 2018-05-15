@@ -5,7 +5,7 @@ import { iosArrowLeft, iosArrowRight } from 'react-icons-kit/ionicons';
 import styled from 'styled-components';
 
 const Calendar = styled.div`
-  width: 90%; margin: 0 auto; background-color: #312E36; overflow: hidden;
+  width: 90%; margin: 0 auto; background-color: #312E36; overflow: hidden; user-select: none;
 `;
 const Controller = styled.div`
   position: relative; padding: 10px 0; color: #FFF; text-align: center; font-size: 1.4em; font-family: 'Roboto';
@@ -45,9 +45,13 @@ const CalendarComponent = (props) => {
   return (
     <Calendar>
       <Controller>
-        <LeftArrow onClick={() => onSelected(`${moment(date).subtract(1, 'month').format('YYYY-MM')}-01`)}><Icon size={20} icon={iosArrowLeft} /></LeftArrow>
+        <LeftArrow onClick={() => onSelected(`${moment(date).subtract(1, 'month').format('YYYY-MM')}-01`)}>
+          <Icon size={20} icon={iosArrowLeft} />
+        </LeftArrow>
         {moment(date).format('MMMM YYYY')}
-        <RightArrow onClick={() => onSelected(`${moment(date).add(1, 'month').format('YYYY-MM')}-01`)}><Icon size={20} icon={iosArrowRight} /></RightArrow>
+        <RightArrow onClick={() => onSelected(`${moment(date).add(1, 'month').format('YYYY-MM')}-01`)}>
+          <Icon size={20} icon={iosArrowRight} />
+        </RightArrow>
       </Controller>
       <Weeks>
         <Week>일</Week>
