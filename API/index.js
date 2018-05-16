@@ -10,6 +10,7 @@
 
 require('dotenv').config(); // 외부에서 설정한 데이터를 process.env로 불러 올수 있게 해줍니다.
 const express = require('express');
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 // 다음과 같이 ./database, ./configuration 폴더형식이 아니게 사용하는 이유는 package.json에 실행시에 NODE_PATH=. 이라는 설정때문에 그렇습니다.
@@ -20,7 +21,8 @@ const router = require('router');
 
 const app = express();
 
-app.use(bodyParser.json(  ));
+app.use(bodyParser.json());
+app.use(morgan('combined'));
 app.use(router);
 
 const PORT = config.get('PORT');

@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const TodoSchema = new Schema({
   isComplete: { type: Boolean, default: false },
   content: { type: String, required: true },
-  createdAt: { type: Date, default: new Date },
+  createdAt: { type: Date, default: Date.now },
   completedAt: { type: Date, default: null }
 }, { collection: 'todo' });
 

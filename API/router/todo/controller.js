@@ -5,7 +5,7 @@ const { Todo } = require('model');
 exports.find = (req, res) => {
   Todo.find({}).exec((error, data) => {
     if (error) throw new Error(error);
-    res.send(`<pre>${data}</pre>`);
+    res.send(data);
   })
 }
 
@@ -14,7 +14,7 @@ exports.findOne = (req, res) => {
   const _id = req.params.id;
   Todo.find({ _id }).exec((error, data) => {
     if (error) throw new Error(error);
-    res.send(`<pre>${data}</pre>`);
+    res.send(data);
   })
 }
 
@@ -25,7 +25,7 @@ exports.create = (req, res) => {
 
   todo.save((error, data) => {
     if (error) throw new Error(error);
-    res.send(`<pre>${data}</pre>`);
+    res.send(data);
   })
 }
 
@@ -36,7 +36,7 @@ exports.update = (req, res) => {
 
   Todo.update({ _id }, data).exec((error, data) => {
     if (error) throw new Error(error);
-    res.send(`<pre>${data}</pre>`);
+    res.send(data);
   })
 }
 
@@ -45,6 +45,14 @@ exports.destroy = (req, res) => {
   const _id = req.params.id;
   Todo.remove({ _id }).exec((error, data) => {
     if (error) throw new Error(error);
-    res.send(`<pre>${data}</pre>`);
+    res.send(data);
+  })
+}
+
+// 모든 일정 삭제
+exports.destroyAll = (req, res) => {
+  Todo.remove({}).exec((error, data) => {
+    if (error) throw new Error(error);
+    res.send(data);
   })
 }
