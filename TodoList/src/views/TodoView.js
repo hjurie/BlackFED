@@ -26,6 +26,7 @@ class TodoView extends Component {
     const { TodoActions } = this.props;
     await TodoActions.update(_id, { isComplete: !isComplete });
     await TodoActions.find();
+    await this.setState({ start: null });
   }
 
   handleMouseDown = (e) => {
@@ -35,18 +36,23 @@ class TodoView extends Component {
     
   }
 
-  handleMouseMove = (e, item) => {
+  handleMouseMove = async (e, item) => {
+    const { start } = this.state;
     const result = e.pageX || e.touches[0].pageX;
     const { _id, open } = item;
     const { TodoActions } = this.props;
-    if(this.state.start - result > 20) {
-      
-      // menu open
-      if (!open) TodoActions.change({ key: true, _id });
-    } else if(this.state.start - result < -20) {
 
-      // menu close
-      if (open) TodoActions.change({ key: false, _id });
+    if(start !== null && start - result > 20) { // menu open
+      if (!open) {
+        await TodoActions.change({ key: true, _id });
+        await this.setState({ start: null })
+      }
+    } else if(start !== null && start - result < -20) { // menu close
+      if (open) {
+        await TodoActions.change({ key: false, _id });
+        await this.setState({ start: null })
+      }
+      
     }
   }
 
