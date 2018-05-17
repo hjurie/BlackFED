@@ -12,7 +12,7 @@ import * as todoActions from '../store/modules/Todo';
 class TodoView extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { start : null };
   }
 
   componentDidMount() {
@@ -20,23 +20,58 @@ class TodoView extends Component {
     TodoActions.find();
   }
 
-  handleChange = async (_id, flag) => {
+  handleChange = async (item) => {
+    const { _id, open, isComplete } = item;
+    if (open) return;
     const { TodoActions } = this.props;
-    await TodoActions.update(_id, { isComplete: flag });
-    await TodoActions.find()
+    await TodoActions.update(_id, { isComplete: !isComplete });
+    await TodoActions.find();
+  }
+
+  handleMouseDown = (e) => {
+    const start = e.pageX || e.touches[0].pageX;
+    
+    this.setState({ start });
+    
+  }
+
+  handleMouseMove = (e, item) => {
+    const result = e.pageX || e.touches[0].pageX;
+    const { _id, open } = item;
+    const { TodoActions } = this.props;
+    if(this.state.start - result > 20) {
+      
+      // menu open
+      if (!open) TodoActions.change({ key: true, _id });
+    } else if(this.state.start - result < -20) {
+
+      // menu close
+      if (open) TodoActions.change({ key: false, _id });
+    }
+  }
+
+  handleModify = (_id) => {
+    const { history } = this.props;
+    history.push(`/write?_id=${_id}`)
   }
 
   handleRemove = async (_id) => {
     const { TodoActions } = this.props;
+    await TodoActions.change({ key: false, _id });
     await TodoActions.remove(_id);
-    await TodoActions.find()
+    await TodoActions.find();
   }
 
   render() {
     return (
       <Layout>
         <Header {...this.props} />
-        <List {...this.props} onChange={this.handleChange} />
+        <List {...this.props}
+          onChange={this.handleChange}
+          onMouseDown={this.handleMouseDown}
+          onMouseMove={this.handleMouseMove}
+          onModify={this.handleModify}
+          onRemove={this.handleRemove} />
       </Layout>
     );
   }

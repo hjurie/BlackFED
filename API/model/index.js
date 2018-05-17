@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 // mongoose를 이용한 스키마 설정 & 컬렉션 설정
 const TodoSchema = new Schema({
   isComplete: { type: Boolean, default: false },
+  deadline: { type: Date, required: true },
   content: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   completedAt: { type: Date, default: null }

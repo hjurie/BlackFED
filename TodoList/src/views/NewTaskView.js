@@ -27,15 +27,29 @@ class NewTaskView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      _id: null,
       date: moment().format('YYYY-MM-DD'),
-      selected: moment().format('YYYY-MM-DD'),
+      deadline: moment().format('YYYY-MM-DD'),
       content: ''
     };
   }
 
-  handleSelected = (selected) => {
-    if(moment().format('YYYY-MM-DD') > selected) { this.setState({ date: selected }) }
-    else { this.setState({ selected, date: selected }) }
+  async componentDidMount() {
+    const { history: { location: { search } }, TodoActions } = this.props;
+    await TodoActions.find();
+    const { list } = this.props;
+    if(search) {
+      const _id = search.replace('?_id=', '');
+      const data = list.filter(item => item._id === _id);
+
+      const { deadline, content } = data[0];
+      this.setState({ _id, deadline: moment(deadline).format('YYYY-MM-DD'), content });
+    }
+  }
+
+  handleSelected = (deadline) => {
+    if(moment().format('YYYY-MM-DD') > deadline) { this.setState({ date: deadline }) }
+    else { this.setState({ deadline, date: deadline }) }
   }
 
   handleChange = (e) => {
@@ -45,9 +59,14 @@ class NewTaskView extends Component {
 
   handleSubmit = async () => {
     const { TodoActions, history } = this.props;
-    const { selected, content } = this.state;
+    const { _id, deadline, content } = this.state;
 
-    await TodoActions.create({ content });
+    if(_id) {
+      await TodoActions.update(_id, { deadline, content });
+    } else {
+      await TodoActions.create({ deadline, content });
+    }
+    
     await TodoActions.find();
     history.push('/todo');
   }
@@ -58,7 +77,7 @@ class NewTaskView extends Component {
   }
 
   render() {
-    const { content } = this.state;
+    const { _id, content } = this.state;
     return (
       <Layout>
         <Header>
@@ -67,7 +86,7 @@ class NewTaskView extends Component {
         </Header>
         <Calendar {...this.state} onSelected={this.handleSelected} />
         <Input type="text" name="content" value={content} onChange={this.handleChange} placeholder="일정 내용" />
-        <Button onClick={this.handleSubmit}>추가하기</Button>
+        <Button onClick={this.handleSubmit}>{_id ? '수정하기' : '추가하기'}</Button>
       </Layout>
     );
   }

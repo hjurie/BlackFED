@@ -41,7 +41,7 @@ const HeaderComponent = (props) => {
     <Header>
       <Date>{moment().format('DD MMMM')}</Date>
       <Total>{list.length - complete} OPEN TASKS</Total>
-      <Link className="add" to="/new_task">+</Link>
+      <Link className="add" to="/write">+</Link>
       <Progress percent={percent}>
         <div className="bar" />
         <div className="status">{percent}%</div>

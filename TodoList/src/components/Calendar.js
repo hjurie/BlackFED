@@ -34,7 +34,7 @@ const Day = styled.div`
 `;
 
 const CalendarComponent = (props) => {
-  const { date, selected, onSelected } = props;
+  const { date, deadline, onSelected } = props;
   
   const startWeek = moment(`${moment(date).format('YYYY-MM')}-01`, 'YYYY-MM-DD').day();
   const startDate = moment(date, 'YYYY-MM-DD').startOf('month').format('DD');
@@ -87,7 +87,7 @@ const CalendarComponent = (props) => {
             const now = moment(`${year}-${month}-${day}`, 'YYYY-M-D').format('YYYY-MM-DD');
             if(moment().format('YYYY-MM-DD') === now) className += ' today';
             if(moment().format('YYYY-MM-DD') > now) className += ' gray';
-            if(selected === now) className += ' selected';
+            if(deadline === now) className += ' selected';
             
 
             return(<Day key={index} className={className} onClick={() => onSelected(now)}>{day}</Day>);

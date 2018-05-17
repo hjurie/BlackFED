@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <Switch>
         <Route path="/todo" component={TodoView} />
-        <Route path="/new_task" component={NewTaskView} />
+        <Route path="/write" component={NewTaskView} />
         <Redirect to="/todo" />
       </Switch>
     );
