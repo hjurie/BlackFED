@@ -31,6 +31,8 @@ const Item = styled.div`
 const ListComponent = (props) => {
   const { onChange } = props;
   let { list } = props;
+  
+  
   list = list.reduce((acc, item) => {
     if (!item.isComplete) { acc.unshift(item); }
     else { acc.push(item); }

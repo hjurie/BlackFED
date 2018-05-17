@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import Icon from 'react-icons-kit';
 import { close } from 'react-icons-kit/ionicons';
@@ -7,6 +9,8 @@ import styled from 'styled-components';
 import Layout from '../styles/Layout';
 
 import Calendar from '../components/Calendar';
+
+import * as todoActions from '../store/modules/Todo';
 
 const Header = styled.div`
   position: fixed; top: 0; left: 0; width: 100%; height: 100px; padding: 20px 0 0 20px; background-color: #242125; color: #9E9793;
@@ -39,10 +43,13 @@ class NewTaskView extends Component {
     this.setState({ [name]: value })
   }
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
+    const { TodoActions, history } = this.props;
     const { selected, content } = this.state;
-    console.log(selected, content);
-    
+
+    await TodoActions.create({ content });
+    await TodoActions.find();
+    history.push('/todo');
   }
 
   handleBack = () => {
@@ -66,4 +73,16 @@ class NewTaskView extends Component {
   }
 };
 
-export default NewTaskView;
+const mapStateToProps = state => {
+  return {
+    list: state.Todo.get('list').toJS()
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    TodoActions: bindActionCreators(todoActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewTaskView);

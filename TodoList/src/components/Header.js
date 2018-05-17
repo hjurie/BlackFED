@@ -30,7 +30,10 @@ const HeaderComponent = (props) => {
     if (cur.isComplete) acc += 1;
     return acc;
   }, 0);
-  const percent = Math.ceil((complete / list.length) * 100);
+  
+  let percent
+  if(list.length === 0) { percent = 0; }
+  else { percent = Math.ceil((complete / list.length) * 100); }
   
   
   
